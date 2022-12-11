@@ -1,0 +1,49 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> {{title}} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Tab 1</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <!-- Instead of using name, I should have been using slot before. I changed item to n to simplify the file since I kept messing up item. n helped me to differeniate more-->
+  <h3 class="no-item" text-center *ngIf="items.length === 0">
+    No items on your list...
+  </h3>
+  <ion-list>
+    <ion-item-sliding *ngFor="let n of items; let i = index">
+      <ion-item>
+        <ion-label>
+          <h2>{{n.name}}</h2>
+          <p>{{n.quantity}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="editItem(n, i)" ion color="primary">
+          <ion-icon slot="icon-only" name="create"></ion-icon>
+          Edit
+        </ion-item-option>
+
+        <ion-item-option (click)="shareItem(n, i)" ion color="light">
+          <ion-icon slot="icon-only" name="share"></ion-icon>
+          Share
+        </ion-item-option>
+
+        <ion-item-option (click)="removeItem(n, i)" ion color="danger">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+          Remove
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addItem()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
